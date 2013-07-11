@@ -39,15 +39,6 @@ var assertFileExists = function(infile) {
 };
 
 
-var assertUrlExists = function(inUrl) {
-    var instr = inUrl.toString();
-    if(!fs.existsSync("temp.index.html")) {
-       console.log("temp.index.html does not exist, creating.");
-       fs.openSync("temp.index.html",'w');
-    }
-    return instr;
-};
-
 var cheerioHtmlFile = function(htmlfile) {
     return cheerio.load(fs.readFileSync(htmlfile));
 };
@@ -78,7 +69,6 @@ if(require.main == module) {
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
         .option('-u, --url <url>', 'url to check')
-        //.option('-u, --url <url>', 'url to check', clone(assertUrlExists), URL_DEFAULT)
         .parse(process.argv);
 
     if (program.url) {
